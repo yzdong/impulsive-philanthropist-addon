@@ -10,9 +10,9 @@ Braintree::Configuration.merchant_id = "thp37yf88fy592rp"
 Braintree::Configuration.public_key = "s9748gsdp7hr24nh"
 Braintree::Configuration.private_key = "c93830fab264bbd03285dee81a9e23e6"
 
-# get "/test" do
-#   File.read('client_test.html')
-# end
+get "/test" do
+  File.read('client_test.html')
+end
 
 # get "/account" do
 #   @client_token = Braintree::ClientToken.generate
@@ -49,6 +49,10 @@ post "/payment" do
 end
 
 get '/charity/all/' do
+  JustGiving.new.get_all_charity_ids.join(',')
+end
+
+get '/charity/test/' do
   JustGiving.new.get_all_charities
 end
 

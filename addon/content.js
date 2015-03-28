@@ -2,6 +2,8 @@ var pattern=/^http?:\/\/([a-zA-Z\d-]+\.){0,}zalora\.sg$/;
 var viewtext_base_url = "https://www.google.com";
 var newurl;
 
+var serverHost = "http://localhost:4567";
+
 console.log(window.location.href.toString());
 
 // if (pattern.test(window.location.href.toString())) // if it matches pattern defined above
@@ -19,7 +21,7 @@ console.log(window.location.href.toString());
 	}
 	
 	//HTML content:
-$.fancybox( '<div><h1>Lorem Lipsum</h1><p>Lorem lipsum</p></div> <button type = "button" class="btn btn-default" id="payment">Pay $10</button><button type="button" class="btn btn-default" id="close-fancy">Left</button></div>', {
+$.fancybox( '<div class="card-list"></div> <button type = "button" class="btn btn-default" id="payment">Pay $10</button><button type="button" class="btn btn-default" id="close-fancy">Left</button></div>', {
     helpers: {
     	title : 'Before you go on',
         overlay : {
@@ -40,12 +42,14 @@ $(function() {
   $( "body" ).append( "<h1>Test2</h1>" );
 });
 
-$('document').ready(function(){  
+$('document').ready(function(){
+  initCharitiesList();
+
   $('#payment').on('click', function(){
      chrome.runtime.sendMessage({ 
       method: 'POST', 
       action: 'xhttp',
-      url: 'http://localhost:4567/payment' 
+      url: serverHost + '/payment'
       }, function(responseText) {
         alert('Success')
       });
@@ -54,7 +58,7 @@ $('document').ready(function(){
 
 // function getAccountInfo() {
 //   var req = new XMLHttpRequest();
-//   req.open("GET", 'http://localhost:4567/account', true);
+//   req.open("GET", serverHost + '/account', true);
 //   req.onload = function(e) {
 //     if (req.readyState === 4) {
 //       if (req.status === 200) {
@@ -77,6 +81,26 @@ $('document').ready(function(){
 //       container: 'dropin'
 //   });
 // }
+
+function initCharitiesList() {
+  ajaxCall(serverHost + "/charity/all/", "GET", function(result) {
+    ajaxCall(serverHost + "/charity/45567/", "GET", function (result) {
+      var json = $.parseJSON(result);
+      $('.card-list').append('<div class="card-image"><div class="title">' + json.name
+        + '</div><div class="content">' + json.description + '</div></div></div>');
+    });
+  });
+}
+
+function ajaxCall(url, type, callback) {
+  chrome.runtime.sendMessage({
+    method: type,
+    action: 'xhttp',
+    url: url,
+    contentType: 'application/json'
+    //data: 'q=something'
+  }, callback);
+}
 
 
 

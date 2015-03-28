@@ -6,7 +6,17 @@ class JustGiving
     get_http_req_as_json sprintf('https://api.justgiving.com/%s/%s/charity/categories', @@app_id, @@version)
   end
 
+  def get_all_charity_ids
+    charities_json = JSON.parse(get_all_charities)
+    ids = []
+    charities_json['charitySearchResults'].each { |c| ids << c['charityId'] }
+
+    ids
+  end
+
   def get_all_charities
+    hard_limit = 0
+
     categories_json = JSON.parse(get_charity_categories)
     categories = ''
     categories_json.each {
@@ -15,6 +25,9 @@ class JustGiving
         categories << '&'
       end
       categories << 'categoryId=' + c['id'].to_s
+
+      break if hard_limit == 0
+      hard_limit -= 1
     }
 
     get_http_req_as_json sprintf('https://api.justgiving.com/%s/%s/charity/search?%s',
