@@ -10,6 +10,10 @@ Braintree::Configuration.merchant_id = "thp37yf88fy592rp"
 Braintree::Configuration.public_key = "s9748gsdp7hr24nh"
 Braintree::Configuration.private_key = "c93830fab264bbd03285dee81a9e23e6"
 
+get '/test' do
+  File.read('client_test.html')
+end
+
 post "/payment" do
   result = Braintree::Transaction.sale(
     :amount => "10.00",
@@ -32,18 +36,28 @@ post "/payment" do
 end
 
 get '/charity/categories/' do
-  cache_control :max_age => 60
-  JustGiving.new.get_all_charities
+  get_cache('charity_categories', JustGiving.new.get_charity_categories, 'application/json')
+end
+
+get '/charity/all/ids/' do
+  JustGiving.new.get_charity_ids(1, 20).join(',')
 end
 
 get '/charity/all/' do
-  JustGiving.new.get_all_charity_ids.join(',')
-end
-
-get '/charity/test/' do
-  JustGiving.new.get_all_charities
+  page = 1
+  pageSize = 20
+  get_cache(sprintf('charity_all_%s_%s', page, pageSize), JustGiving.new.get_charities(page, pageSize), 'application/json')
 end
 
 get '/charity/:id/' do
+  # get_cache('charity_by_id', JustGiving.new.get_charity_by_id(params[:id]), 'application/json')
   JustGiving.new.get_charity_by_id(params[:id])
+end
+
+def get_cache(id, data, type)
+  cache_file = File.join("cache", id)
+  if !File.exist?(cache_file) || (File.mtime(cache_file) < (Time.now - 600))
+    File.open(cache_file,"w"){ |f| f << data }
+  end
+  send_file cache_file, :type => type
 end

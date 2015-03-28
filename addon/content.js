@@ -69,17 +69,26 @@ function responseMessage(response) {
 // }
 
 function initCharitiesList() {
-  ajaxCall(serverHost + "/charity/all/", "GET", function(result) {
+  ajaxCall(serverHost + "/charity/all/ids/", "GET", function(result) {
     var arr = result.split(',');
 
+    console.log('count: ' + arr.length);
     for (var i=0; i<arr.length; i++) {
-      ajaxCall(serverHost + "/charity/" + arr[i] + "/", "GET", function(result) {
+      var random = Math.floor(Math.random() * (arr.length - 1));
+
+      ajaxCall(serverHost + "/charity/" + arr[random] + "/", "GET", function(result) {
         var json = $.parseJSON(result);
-        $('.card-list').append('<div class="card" title="' + json.description + '"><div class="title">' + json.name
-        + '</div>'
-        + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
-        + '</div></div>');
+        // if not bmp AND not spacer.gif
+        if (json.logoUrl.toLowerCase() != 'unknown'
+          && json.logoUrl.indexOf('.bmp') == -1) {
+          $('.card-list').append('<div id="' + json.id + '" class="card" title="' + json.description + '"><div class="title">' + json.name
+          + '</div>'
+          + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
+          + '</div></div>');
+        }
       });
+
+      arr[random] = -1;
     }
   });
 }
