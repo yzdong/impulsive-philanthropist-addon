@@ -1,0 +1,39 @@
+<head>
+  <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+</head>
+
+<body>
+  <form id="donations" method="post" action="/donations">
+    <div id="dropin"></div>
+    <input type="submit" value="Pay $10">
+  </form>
+
+  <script> 
+    getAccountInfo();
+    function getAccountInfo() {
+      var req = new XMLHttpRequest();
+      req.open("GET", 'account', true);
+      req.onload = function(e) {
+        if (req.readyState === 4) {
+          if (req.status === 200) {
+            setupPaymentDetails(req.responseText)
+          } else {
+            console.error(req.statusText);
+          }
+        }
+      }
+      req.send(null)
+    };
+
+    function setupPaymentDetails(properties) {
+      var account_info = JSON.parse(properties);
+      var client_token = account_info.client_token;
+      console.log(client_token)
+      braintree.setup(
+        client_token,
+        'dropin', {
+          container: 'dropin'
+      });
+    }
+  </script>
+</body>
