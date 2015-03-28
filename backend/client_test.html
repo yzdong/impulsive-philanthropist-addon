@@ -1,15 +1,63 @@
 <head>
-  <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+  <!--<script src="https://js.braintreegateway.com/v2/braintree.js"></script>-->
+  <script src="/jquery-2.1.3.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/card.css">
+  <script>
+    function init() {
+      ajaxCall("/charity/all/", "GET", function(result) {
+        ajaxCall("/charity/45567/", "GET", function(result) {
+          var json = $.parseJSON(result);
+          $('.card-list').append('<div class="card-image"><div class="title">' + json.name
+            + '</div><div class="content">' + json.description + '</div></div></div>');
+        });
+        //var arr = result.split(',');
+//        for (var i = 0; i < arr.length; i++) {
+//          ajaxCall("/charity/" + arr[i] + '/', "GET", function(result) {
+//            var json = eval(result);
+//            $('.card-list').children().append('<div class="card-image"><div class="title">' + json.name + '</div></div>');
+//          });
+//        }
+      });
+    }
+
+    function chromeAjaxCall(url, type) {
+      chrome.runtime.sendMessage({
+        method: type,
+        action: 'xhttp',
+        contentType: 'application/json',
+        url: url
+        //data: 'q=something'
+      }, function(result) {
+        var json = eval(result);
+        $('.card-list').append('<div class="card-image"><div class="title">' + json.name + '</div></div>');
+      });
+    }
+
+    function ajaxCall(url, type, callback) {
+      $.ajax({
+        url: url,
+        type: type,
+        contentType: "application/json",
+        success: callback,
+        error: function(result) {
+          console.log(result);
+        }
+      });
+    }
+  </script>
 </head>
 
-<body>
+<body onload="init();">
   <form id="donations" method="post" action="/donations">
-    <div id="dropin"></div>
-    <input type="submit" value="Pay $10">
+    <div class="card-list">
+    </div>
+
+    <!--<div id="dropin"></div>-->
+    <!--<input type="submit" value="Pay $10">-->
   </form>
 
   <script> 
-    getAccountInfo();
+    //getAccountInfo();
     function getAccountInfo() {
       var req = new XMLHttpRequest();
       req.open("GET", 'account', true);

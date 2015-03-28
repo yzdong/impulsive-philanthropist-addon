@@ -1,4 +1,7 @@
 
+
+var serverHost = "http://localhost:4567";
+
 	//HTML content:
 $.fancybox( '<div><h1>Before you make this purchase...</h1><p>17% of clothing purchases will never be worn by their owners. Consider a donation instead.</p></div> <button type = "button" class="btn btn-default" id="payment">Donate $10</button><button type="button" class="btn btn-default" id="close-fancy">I need these shoes</button></div>', {
     helpers: {
@@ -21,12 +24,14 @@ $(function() {
   $( "body" ).append( "<h1>Test2</h1>" );
 });
 
-$('document').ready(function(){  
+$('document').ready(function(){
+  initCharitiesList();
+
   $('#payment').on('click', function(){
      chrome.runtime.sendMessage({ 
       method: 'POST', 
       action: 'xhttp',
-      url: 'http://localhost:4567/payment' 
+      url: serverHost + '/payment'
       }, function(responseText) {
         responseMessage(responseText)
       });
@@ -39,7 +44,7 @@ function responseMessage(response) {
 
 // function getAccountInfo() {
 //   var req = new XMLHttpRequest();
-//   req.open("GET", 'http://localhost:4567/account', true);
+//   req.open("GET", serverHost + '/account', true);
 //   req.onload = function(e) {
 //     if (req.readyState === 4) {
 //       if (req.status === 200) {
@@ -62,6 +67,26 @@ function responseMessage(response) {
 //       container: 'dropin'
 //   });
 // }
+
+function initCharitiesList() {
+  ajaxCall(serverHost + "/charity/all/", "GET", function(result) {
+    ajaxCall(serverHost + "/charity/45567/", "GET", function (result) {
+      var json = $.parseJSON(result);
+      $('.card-list').append('<div class="card-image"><div class="title">' + json.name
+        + '</div><div class="content">' + json.description + '</div></div></div>');
+    });
+  });
+}
+
+function ajaxCall(url, type, callback) {
+  chrome.runtime.sendMessage({
+    method: type,
+    action: 'xhttp',
+    url: url,
+    contentType: 'application/json'
+    //data: 'q=something'
+  }, callback);
+}
 
 
 

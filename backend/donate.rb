@@ -32,6 +32,10 @@ post "/payment" do
 end
 
 get '/charity/all/' do
+  JustGiving.new.get_all_charity_ids.join(',')
+end
+
+get '/charity/test/' do
   JustGiving.new.get_all_charities
 end
 
