@@ -1,14 +1,79 @@
-{ 
-  "manifest_version": 2,
+// { 
+//   "manifest_version": 2,
+//   "name": "The Impulsive Philanthropist", 
+//   "description": "This addon reminds you to donate when making purchases",
+//   "version": "1.0",
+//   "browser_action": {
+//     "default_icon": "icon.png",
+//     "default_popup": "popup.html"
+//   },
+//   "permissions": [
+//     "activeTab", 
+//     "tabs"
+//   ],
+//   "content_scripts": [
+//    {
+//      "matches": ["http://*/*", "https://*/*"],
+//      "js": ["content.js"]
+//    }],
+//   "background": {
+//     "page": "bg.html"
+//   }
+// }
+{
   "name": "The Impulsive Philanthropist", 
-  "description": "This addon reminds you to donate when making purchases",
-  "version": "1.0",
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "activeTab", 
-    "http://www.zalora.sg/"
-  ]
+  "description": "This addon reminds you to donate when making purchases",  
+  "name": "URL Redirect",
+  "version": "0.2",
+  "description": "Checks URL and redirects as required.",
+   "browser_action": {
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+    },
+   "manifest_version": 2,
+   "content_scripts": [
+   {
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["jquery-2.1.3.min.js", "bootstrap.min.js", "jquery.fancybox.pack.js", "content.js"],
+    "css": ["bootstrap.min.js", "bootstrap.min.css", "jquery.fancybox.css"]
+   }
+   ]
+  // "permissions":["tabs"],
+  // "background": {
+  //   "scripts": ["redirect.js"],
+  //   "persistent": true
+  // }
 }
+
+// {
+//   "name": "Hanlder for Navigation",
+//   "description": "http://stackoverflow.com/questions/16928912/url-forwarding-using-chrome-webrequest-after-response-is-received",
+//   "version": "1",
+//   "manifest_version": 2,
+//   "browser_action": {
+//       "default_icon": "icon.png"
+//       // "default_popup": "popup.html"
+//     },
+//   "background": {
+//     "scripts": ["redirect.js"],
+//     "presistent": true
+//   },
+//   "permissions": ["webRequest",
+//    "webRequestBlocking",
+//    "http://*/*",
+//    "https://*/*"]
+// }
+
+// {
+//    "name": "OnRequest",
+//    "version": "1.0",
+//    "description": "I can't has cheezburger!",
+//    "permissions": ["webRequest",
+//    "webRequestBlocking",
+//    "http://*/*",
+//    "https://*/*"],
+//    "background": {
+//                     "scripts": ["redirect.js"]
+//                  },
+//    "manifest_version": 2
+// }
