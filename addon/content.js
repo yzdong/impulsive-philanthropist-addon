@@ -3,7 +3,7 @@
 var serverHost = "http://localhost:4567";
 
 	//HTML content:
-$.fancybox( '<div><h1>Before you make this purchase...</h1><p>17% of clothing purchases will never be worn by their owners. Consider a donation instead.</p></div> <button type = "button" class="btn btn-default" id="payment">Donate $10</button><button type="button" class="btn btn-default" id="close-fancy">I need these shoes</button></div>', {
+$.fancybox( '<div><h1>Before you make this purchase...</h1><p>17% of clothing purchases will never be worn by their owners. Consider a donation instead.</p></div> <div class="card-list"></div> <button type = "button" class="btn btn-default" id="payment">Donate $10</button><button type="button" class="btn btn-default" id="close-fancy">I need these shoes</button></div>', {
     helpers: {
     	title : 'Before you make this purchase...',
         overlay : {
@@ -75,7 +75,7 @@ function initCharitiesList() {
     for (var i=0; i<arr.length; i++) {
       ajaxCall(serverHost + "/charity/" + arr[i] + "/", "GET", function(result) {
         var json = $.parseJSON(result);
-        $('.card-list').append('<div class="card"><div class="title" title="' + json.description + '">' + json.name
+        $('.card-list').append('<div class="card" title="' + json.description + '"><div class="title">' + json.name
         + '</div>'
         + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
         + '</div></div>');
