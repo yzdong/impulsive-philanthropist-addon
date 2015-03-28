@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'braintree'
+require 'net/http'
+require 'uri'
+load 'just_giving.rb'
 
 Braintree::Configuration.environment = :sandbox
 Braintree::Configuration.merchant_id = "thp37yf88fy592rp"
@@ -15,6 +18,7 @@ Braintree::Configuration.private_key = "c93830fab264bbd03285dee81a9e23e6"
 #   content_type :json
 #   {:client_token => @client_token, :client_name => 'Tan Kah Kee' }.to_json
 # end 
+
 
 # post "/donations" do
 #   nonce = params[:payment_method_nonce]
@@ -42,4 +46,12 @@ post "/payment" do
     }
   )
   puts result
-end 
+end
+
+get '/charity/all/' do
+  JustGiving.new.get_all_charities
+end
+
+get '/charity/:id/' do
+  JustGiving.new.get_charity_by_id(params[:id])
+end
