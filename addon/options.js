@@ -1,5 +1,12 @@
 
 $(function() {
 //   // Handler for .ready() called.
-	$('#my-select').multiSelect();
+	$( ".polaroid" ).click(function() {
+		console.log('lol');
+	  $(this).toggleClass("active");
+	});
+
+	
 });
+
+

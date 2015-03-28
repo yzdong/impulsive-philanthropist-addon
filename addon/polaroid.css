@@ -1,0 +1,69 @@
+.polaroid {
+  position: relative;
+  width: 240px;
+  /*width: 48%;*/
+  opacity: 0.3;
+  margin-left: auto;
+  margin-right: auto;
+  float: left;
+  max-width: 240px;
+  padding: 10px;
+}
+ 
+.polaroid img {
+  border: 10px solid #fff;
+  border-bottom: 45px solid #fff;
+  border-top: 1px;
+  border-right: 1px;
+  border-left: 1px;
+  -webkit-box-shadow: 3px 3px 3px #777;
+     -moz-box-shadow: 3px 3px 3px #777;
+          box-shadow: 3px 3px 3px #777;
+  /*width: 200px;*/
+  /*height: 100px;*/
+  width: 100%;
+  
+
+  /*padding: 0px;
+  margin: 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;*/
+}
+ 
+.polaroid p {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 10px;
+  /*font: 400 18px/1 'Kaushan Script', cursive;*/
+  /*color: #888;*/
+}
+
+/*a {
+  width: 150px;
+  border: 1px solid #9325BC;
+  padding: 10px;
+}*/
+
+
+img:hover{
+  border-color: #D8BFD8;
+    /*-webkit-box-shadow: 3px 3px 3px #D8BFD8;
+    -moz-box-shadow:  3px 3px 3px #D8BFD8;
+    box-shadow: 3px 3px 3px #D8BFD8;
+*/}
+
+.active{
+    opacity: 1.0;
+}
+
+.container{
+  margin-left: auto;
+  margin-right: auto;
+  /*text-align: center;*/
+  max-width: 520px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
