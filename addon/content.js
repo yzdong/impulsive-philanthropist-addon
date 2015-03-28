@@ -40,16 +40,7 @@ $(function() {
   $( "body" ).append( "<h1>Test2</h1>" );
 });
 
-$('document').ready(function(){
-  // getAccountInfo();
-  // chrome.runtime.sendMessage({
-  //   method: 'GET',
-  //   action: 'xhttp',
-  //   url: 'http://localhost:4567/account'
-  // }, function(responseText) {
-  //   setupPaymentDetails(responseText)
-  // });
-  
+$('document').ready(function(){  
   $('#payment').on('click', function(){
      chrome.runtime.sendMessage({ 
       method: 'POST', 

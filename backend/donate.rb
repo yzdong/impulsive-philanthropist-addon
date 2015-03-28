@@ -2,6 +2,7 @@ require 'sinatra'
 require 'braintree'
 require 'net/http'
 require 'uri'
+require 'pry'
 load 'just_giving.rb'
 
 Braintree::Configuration.environment = :sandbox
@@ -39,13 +40,12 @@ post "/payment" do
       :number => "4111111111111111",
       :expiration_date => "05/2020",
       :cardholder_name => "Tan Kah Kee",
-      :cvv => "cvv"
+      :cvv => "231"
     }, 
     :options => {
       :submit_for_settlement => true
     }
   )
-  puts result
 end
 
 get '/charity/all/' do
