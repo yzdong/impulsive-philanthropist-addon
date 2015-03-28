@@ -7,7 +7,7 @@
   "description": "Checks URL and redirects as required.",
    "browser_action": {
       "default_icon": "icon.png",
-      "default_popup": "popup.html"
+      "default_popup": "options.html"
     },
    "manifest_version": 2,
    "content_scripts": [
@@ -26,7 +26,17 @@
     "background": {
     "scripts": ["background.js"],
     "persistent": true
+  },
+    "options_ui": {
+    // Required.
+    "page": "options.html",
+    // Recommended.
+    "chrome_style": true
+    // Not recommended; only provided for backwards compatibility,
+    // and will be unsupported in a future version of Chrome (TBD).
+    //"open_in_tab": true
   }
+
 }
 
 // {
