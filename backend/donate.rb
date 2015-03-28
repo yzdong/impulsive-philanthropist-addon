@@ -18,5 +18,12 @@ end
 
 post "/donations" do
   nonce = params[:payment_method_nonce]
+  result = Braintree::Transaction.sale(
+    :amount => "10.00",
+    :payment_method_nonce => nonce, 
+    :options => {
+      :submit_for_settlement => true
+    }
+  )
   puts 'Received payment: ' + nonce
 end
