@@ -1,27 +1,8 @@
-var pattern=/^http?:\/\/([a-zA-Z\d-]+\.){0,}zalora\.sg$/;
-var viewtext_base_url = "https://www.google.com";
-var newurl;
 
-console.log(window.location.href.toString());
-
-// if (pattern.test(window.location.href.toString())) // if it matches pattern defined above
-// {
-
-	console.log("correct link");
-	newurl = viewtext_base_url; //+ encodeURIComponent(window.location.href);
-	// chrome.extension.sendRequest({redirect: newurl}); // send message to redirect
-
-	// alert('lol');
-	var $width = 700;
-// for window smaller than 800px (or else)
-	if ($(window).width() < 860){
-	    $width = "80%" // or whatever for small devices
-	}
-	
 	//HTML content:
-$.fancybox( '<div><h1>Lorem Lipsum</h1><p>Lorem lipsum</p></div> <button type = "button" class="btn btn-default" id="payment">Pay $10</button><button type="button" class="btn btn-default" id="close-fancy">Left</button></div>', {
+$.fancybox( '<div><h1>Before you make this purchase...</h1><p>17% of clothing purchases will never be worn by their owners. Consider a donation instead.</p></div> <button type = "button" class="btn btn-default" id="payment">Donate $10</button><button type="button" class="btn btn-default" id="close-fancy">I need these shoes</button></div>', {
     helpers: {
-    	title : 'Before you go on',
+    	title : 'Before you make this purchase...',
         overlay : {
             css : {
                 'background' : 'rgba(255,255,255,0.5)'
@@ -47,10 +28,14 @@ $('document').ready(function(){
       action: 'xhttp',
       url: 'http://localhost:4567/payment' 
       }, function(responseText) {
-        alert('Success')
+        responseMessage(responseText)
       });
     })
   })
+
+function responseMessage(response) {
+  $('.fancybox-inner').empty().append(JSON.parse(response).message)
+}
 
 // function getAccountInfo() {
 //   var req = new XMLHttpRequest();
