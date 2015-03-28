@@ -70,11 +70,17 @@ function responseMessage(response) {
 
 function initCharitiesList() {
   ajaxCall(serverHost + "/charity/all/", "GET", function(result) {
-    ajaxCall(serverHost + "/charity/45567/", "GET", function (result) {
-      var json = $.parseJSON(result);
-      $('.card-list').append('<div class="card-image"><div class="title">' + json.name
-        + '</div><div class="content">' + json.description + '</div></div></div>');
-    });
+    var arr = result.split(',');
+
+    for (var i=0; i<arr.length; i++) {
+      ajaxCall(serverHost + "/charity/" + arr[i] + "/", "GET", function(result) {
+        var json = $.parseJSON(result);
+        $('.card-list').append('<div class="card"><div class="title" title="' + json.description + '">' + json.name
+        + '</div>'
+        + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
+        + '</div></div>');
+      });
+    }
   });
 }
 

@@ -31,6 +31,11 @@ post "/payment" do
   {message: message}.to_json
 end
 
+get '/charity/categories/' do
+  cache_control :max_age => 60
+  JustGiving.new.get_all_charities
+end
+
 get '/charity/all/' do
   JustGiving.new.get_all_charity_ids.join(',')
 end

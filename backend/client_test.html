@@ -3,33 +3,21 @@
   <script src="/jquery-2.1.3.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/card.css">
   <script>
-    function init() {
-      ajaxCall("/charity/all/", "GET", function(result) {
-        ajaxCall("/charity/45567/", "GET", function(result) {
-          var json = $.parseJSON(result);
-          $('.card-list').append('<div class="card-image"><div class="title">' + json.name
-            + '</div><div class="content">' + json.description + '</div></div></div>');
-        });
-        //var arr = result.split(',');
-//        for (var i = 0; i < arr.length; i++) {
-//          ajaxCall("/charity/" + arr[i] + '/', "GET", function(result) {
-//            var json = eval(result);
-//            $('.card-list').children().append('<div class="card-image"><div class="title">' + json.name + '</div></div>');
-//          });
-//        }
-      });
-    }
+    var serverHost = "";
 
-    function chromeAjaxCall(url, type) {
-      chrome.runtime.sendMessage({
-        method: type,
-        action: 'xhttp',
-        contentType: 'application/json',
-        url: url
-        //data: 'q=something'
-      }, function(result) {
-        var json = eval(result);
-        $('.card-list').append('<div class="card-image"><div class="title">' + json.name + '</div></div>');
+    function initCharitiesList() {
+      ajaxCall(serverHost + "/charity/all/", "GET", function(result) {
+        var arr = result.split(',');
+
+        for (var i=0; i<arr.length; i++) {
+          ajaxCall(serverHost + "/charity/" + arr[i] + "/", "GET", function(result) {
+            var json = $.parseJSON(result);
+            $('.card-list').append('<div class="card"><div class="title" title="' + json.description + '">' + json.name
+            + '</div>'
+            + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
+            + '</div></div>');
+          });
+        }
       });
     }
 
@@ -38,6 +26,7 @@
         url: url,
         type: type,
         contentType: "application/json",
+        async: true,
         success: callback,
         error: function(result) {
           console.log(result);
@@ -47,7 +36,7 @@
   </script>
 </head>
 
-<body onload="init();">
+<body onload="initCharitiesList();">
   <form id="donations" method="post" action="/donations">
     <div class="card-list">
     </div>
