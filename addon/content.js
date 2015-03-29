@@ -1,5 +1,4 @@
 
-
 var serverHost = "http://localhost:4567";
 
 	//HTML content:
@@ -14,24 +13,19 @@ $.fancybox( '<div><h1>Before you make this purchase...</h1><p>17% of clothing pu
 	}
 });
 
-
 $("#close-fancy").click(function(){
 	$.fancybox.close();
-});
-
-$(function() {
-//   // Handler for .ready() called.
-  $( "body" ).append( "<h1>Test2</h1>" );
 });
 
 $('document').ready(function(){
   initCharitiesList();
 
   $('#payment').on('click', function(){
-     chrome.runtime.sendMessage({ 
+     chrome.runtime.sendMessage({
       method: 'POST', 
       action: 'xhttp',
-      url: serverHost + '/payment'
+      url: serverHost + '/payment',
+      data: { "selected_charity": $('#selected_charity').val() }
       }, function(responseText) {
         responseMessage(responseText)
       });
@@ -86,11 +80,22 @@ function initCharitiesList() {
             + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
             + '</div></div>');
 
-          card.click(function() {
-            $(this).toggleClass("active");
-          });
-
+          $('.card-list').append('<input type="hidden" id="selected_charity" value="">');
           $('.card-list').append(card);
+
+          card.click(function() {
+            var id = json.id;
+            // make the rest inactive first
+            $.each(card.children('.card'), function(index, element) {
+              alert($(this).id);
+              if (id != $(this).id) {
+                $(this).removeClass('active');
+              }
+            });
+
+            $(this).toggleClass('active');
+            $('#selected_charity').val(id);
+          });
         }
       });
 
