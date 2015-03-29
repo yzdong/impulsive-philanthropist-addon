@@ -30,10 +30,11 @@
     font-size: 11px;
 }
 .bootstrap-frm label {
-    display: block;
+    /*display: block;*/
+    width: 100%;
     margin: 0px 0px 5px;
 }
-.bootstrap-frm label>span {
+/*.bootstrap-frm label>span {
     float: left;
     width: 20%;
     text-align: right;
@@ -42,8 +43,9 @@
     color: #333;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
-}
+}*/
 .bootstrap-frm input[type="text"], .bootstrap-frm input[type="email"], .bootstrap-frm textarea, .bootstrap-frm select{
+    width: 100%;
     border: 1px solid #CCC;
     color: #888;
     height: 20px;
@@ -53,7 +55,6 @@
     margin-top: 2px;
     outline: 0 none;
     padding: 5px 0px 5px 5px;
-    width: 70%;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;    
@@ -63,6 +64,7 @@
     vertical-align: middle;
 }
 label{
+    width: 100%;
     vertical-align: middle;
     /*margin-bottom: -30px;*/
     margin-right: 6px;
