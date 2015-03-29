@@ -50,8 +50,8 @@ get '/charity/all/' do
 end
 
 get '/charity/:id/' do
-  # get_cache('charity_by_id', JustGiving.new.get_charity_by_id(params[:id]), 'application/json')
-  JustGiving.new.get_charity_by_id(params[:id])
+  get_cache('charity_by_id_' + params[:id], JustGiving.new.get_charity_by_id(params[:id]), 'application/json')
+  #JustGiving.new.get_charity_by_id(params[:id])
 end
 
 def get_cache(id, data, type)

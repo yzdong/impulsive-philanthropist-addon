@@ -81,8 +81,8 @@ function initCharitiesList() {
         // if not bmp AND not spacer.gif
         if (json.logoUrl != null && json.logoUrl.toLowerCase() != 'unknown'
           && json.logoUrl.indexOf('.bmp') == -1) {
-          var card = $('<div id="' + json.id + '" class="card" title="' + json.description + '"><div class="title">' + json.name
-            + '</div>'
+          var card = $('<div id="' + json.id + '" class="card" title="' + json.description + '">'
+            + '<div class="card-title">' + json.name + '</div>'
             + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
             + '</div></div>');
 
