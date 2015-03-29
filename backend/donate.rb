@@ -50,14 +50,14 @@ get '/charity/all/' do
 end
 
 get '/charity/:id/' do
-  # get_cache('charity_by_id', JustGiving.new.get_charity_by_id(params[:id]), 'application/json')
-  JustGiving.new.get_charity_by_id(params[:id])
+  get_cache('charity_by_id_' + params[:id], JustGiving.new.get_charity_by_id(params[:id]), 'application/json')
+  #JustGiving.new.get_charity_by_id(params[:id])
 end
 
 def get_cache(id, data, type)
   cache_file = File.join("cache", id)
   if !File.exist?(cache_file) || (File.mtime(cache_file) < (Time.now - 600))
-    File.open(cache_file,"w"){ |f| f << data }
+    File.open(cache_file, "w"){ |f| f << data }
   end
   send_file cache_file, :type => type
 end
