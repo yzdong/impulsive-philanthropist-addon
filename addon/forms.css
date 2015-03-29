@@ -1,11 +1,11 @@
 /* #### bootstrap Form #### */
 .bootstrap-frm {
-    margin-left:auto;
+    /*margin-left:auto;
     margin-right:auto;
-
+    margin-top: 20px;
     max-width: 500px;
     background: #FFF;
-    padding: 20px 30px 20px 30px;
+    padding: 50px 30px 20px 30px;
     font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #888;
     text-shadow: 1px 1px 1px #FFF;
@@ -13,16 +13,19 @@
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    height:auto;*/
+
+    padding-top: 0px;
+    margin-left: auto;
+  margin-right: auto;
+  /*text-align: center;*/
+  max-width: 520px;
+  padding-right: 5px;
+  padding-left: 5px;
+  height:auto;
 }
-.bootstrap-frm h1 {
-    font: 25px "Helvetica Neue", Helvetica, Arial, sans-serif;
-    padding: 0px 0px 10px 40px;
-    display: block;
-    border-bottom: 1px solid #DADADA;
-    margin: -10px -30px 30px -30px;
-    color: #888;
-}
-.bootstrap-frm h1>span {
+
+.bootstrap-frm h2>span {
     display: block;
     font-size: 11px;
 }
