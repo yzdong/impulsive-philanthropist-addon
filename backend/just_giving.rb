@@ -8,11 +8,13 @@ class JustGiving
   end
 
   def get_charity_ids page, pageSize
-    charities_json = JSON.parse(get_charities page, pageSize)
-    ids = []
-    charities_json['charitySearchResults'].each { |c| ids << c['charityId'] }
+    # charities_json = JSON.parse(get_charities page, pageSize)
+    # ids = []
+    # charities_json['charitySearchResults'].each { |c| ids << c['charityId'] }
+    #
+    # ids
 
-    ids
+    [190017,147924,215925,224505,227715,196056,245297,97929,129453,74800,223152,45567,130683,245178,14609,133418,130651,123788,200224,56032]
   end
 
   def get_charities page, pageSize

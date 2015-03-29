@@ -57,7 +57,7 @@ end
 def get_cache(id, data, type)
   cache_file = File.join("cache", id)
   if !File.exist?(cache_file) || (File.mtime(cache_file) < (Time.now - 600))
-    File.open(cache_file,"w"){ |f| f << data }
+    File.open(cache_file, "w"){ |f| f << data }
   end
   send_file cache_file, :type => type
 end
