@@ -46,43 +46,78 @@ $(function() {
 
 	$( "input" ).blur(function() {
 		var val = $(this).val();
-		var key = $(this).closest("label").text();
+		var key = this.id;
 		var obj = {}
-		console.log(val);
-		obj[key] = val;
-		chrome.storage.sync.set({'obj': '123'}, function() {
-          	console.log(obj);
-        });
+		//obj[key] = val;
 
-        chrome.storage.sync.get('obj', function(result){
-			// console.log('key after' + key);
-  			console.log('lol after' + result.value);
-  			if (!(result.value === undefined)) {
-  				val = result.value;
+    if (key == 'cardno') {
+      chrome.storage.sync.set({ "cardno": val }, function() {
+        console.log("cardno, " + val);
+      });
+    } else if (key == 'expiry') {
+      chrome.storage.sync.set({ "expiry": val }, function() {
+        console.log("expiry, " + val);
+      });
 
-  			}
+    } else if (key == 'cvv') {
+      chrome.storage.sync.set({ "cvv": val }, function() {
+        console.log("cvv, " + val);
+      });
+    }
 
-  		});
+        //chrome.storage.sync.get("cardno", function(result) {
+			  //// console.log('key after' + key);
+  			//console.log(result);
+  			//if (!(result.value === undefined)) {
+  			//	val = result.value;
+  			//}
+  		//});
 	});
-
-	
 });
 
 function populateValues(){
-	$( "input" ).val(
-		function(){
-		var key = $(this).closest("label").text();
-		var val = '';
-		chrome.storage.sync.get(key, function(result){
-			console.log('key' + key);
-  			console.log('lol' + result.value);
-  			if (!(result.value === undefined)) {
-  				val = result.value;
+	//$( "input" ).val(
+	//	function(){
+	//	var key = $(this).closest("label").text();
+	//	var val = '';
+	//	chrome.storage.sync.get(key, function(result){
+	//		console.log('key' + key);
+  	//		console.log('lol' + result.value);
+  	//		if (!(result.value === undefined)) {
+  	//			val = result.value;
+  //
+  	//		}
+  //
+  	//	});
+	//	return val;
+	//})
+  getCache();
+}
 
-  			}
+function getCache() {
+  chrome.storage.sync.get('cardno', function (result) {
+    console.log('lolx ' + result.cardno);
+    if (!(result.cardno === undefined)) {
+      val = result.cardno;
+      $('#cardno').val(val);
 
-  		});
-		return val;
-	})
+    }
+  });
+  
+  chrome.storage.sync.get('expiry', function (result) {
+    console.log('lolx ' + result.expiry);
+    if (!(result.expiry === undefined)) {
+      val = result.expiry;
+      $('#expiry').val(val);
+    }
+  });
+
+  chrome.storage.sync.get('cvv', function (result) {
+    console.log('lolx ' + result.cvv);
+    if (!(result.cvv === undefined)) {
+      val = result.cvv;
+      $('#cvv').val(val);
+    }
+  });
 }
 

@@ -1,9 +1,8 @@
 
 {
-  "name": "The Impulsive Philanthropist", 
-  "description": "This addon reminds you to donate when making purchases",  
+  "name": "Impulsative",
+  "description": "This addon reminds you to donate when making purchases.",
   "version": "0.2",
-  "description": "Checks URL and redirects as required.",
    "browser_action": {
       "default_icon": "icon.png",
       "default_popup": "options.html"
