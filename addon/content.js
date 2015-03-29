@@ -79,12 +79,18 @@ function initCharitiesList() {
       ajaxCall(serverHost + "/charity/" + arr[random] + "/", "GET", function(result) {
         var json = $.parseJSON(result);
         // if not bmp AND not spacer.gif
-        if (json.logoUrl.toLowerCase() != 'unknown'
+        if (json.logoUrl != null && json.logoUrl.toLowerCase() != 'unknown'
           && json.logoUrl.indexOf('.bmp') == -1) {
-          $('.card-list').append('<div id="' + json.id + '" class="card" title="' + json.description + '"><div class="title">' + json.name
-          + '</div>'
-          + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
-          + '</div></div>');
+          var card = $('<div id="' + json.id + '" class="card" title="' + json.description + '">'
+            + '<div class="card-title">' + json.name + '</div>'
+            + '<div class="card-image"><img src="' + json.logoAbsoluteUrl + '"></img></div>'
+            + '</div></div>');
+
+          card.click(function() {
+            $(this).toggleClass("active");
+          });
+
+          $('.card-list').append(card);
         }
       });
 

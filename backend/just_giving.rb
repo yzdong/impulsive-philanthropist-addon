@@ -3,16 +3,18 @@ class JustGiving
   @@version = 'v1'
 
   def get_charity_categories
-    [{"category" => "Animal shelters and charities", "id"=>30},{"category"=>"Arts and culture","id"=>20},{"category"=>"Children\'s charities","id"=>21},{"category"=>"Climate Change (GG Green)","id"=>202},{"category"=>"Corporate social responsibility","id"=>182},{"category"=>"Democracy and Governance","id"=>197},{"category"=>"Disability","id"=>22},{"category"=>"Economic Development","id"=>198},{"category"=>"Education","id"=>23},{"category"=>"Elderly health and care","id"=>19},{"category"=>"Environmental agencies","id"=>24},{"category"=>"Homelessness charities","id"=>26},{"category"=>"Hospices","id"=>102},{"category"=>"Human rights charities","id"=>27},{"category"=>"International aid agencies","id"=>28},{"category"=>"Medical and health charities","id"=>25},{"category"=>"Microfinance","id"=>199},{"category"=>"Religion","id"=>104},{"category"=>"Rescue charities","id"=>103},{"category"=>"Social welfare organisations","id"=>29},{"category"=>"Sports charities","id"=>105},{"category"=>"Technology","id"=>200},{"category"=>"Women and Girls","id"=>201}]
-    #JSON.parse(get_http_req_as_json sprintf('https://api.justgiving.com/%s/%s/charity/categories', @@app_id, @@version))
+    #[{"category" => "Animal shelters and charities", "id"=>30},{"category"=>"Arts and culture","id"=>20},{"category"=>"Children\'s charities","id"=>21},{"category"=>"Climate Change (GG Green)","id"=>202},{"category"=>"Corporate social responsibility","id"=>182},{"category"=>"Democracy and Governance","id"=>197},{"category"=>"Disability","id"=>22},{"category"=>"Economic Development","id"=>198},{"category"=>"Education","id"=>23},{"category"=>"Elderly health and care","id"=>19},{"category"=>"Environmental agencies","id"=>24},{"category"=>"Homelessness charities","id"=>26},{"category"=>"Hospices","id"=>102},{"category"=>"Human rights charities","id"=>27},{"category"=>"International aid agencies","id"=>28},{"category"=>"Medical and health charities","id"=>25},{"category"=>"Microfinance","id"=>199},{"category"=>"Religion","id"=>104},{"category"=>"Rescue charities","id"=>103},{"category"=>"Social welfare organisations","id"=>29},{"category"=>"Sports charities","id"=>105},{"category"=>"Technology","id"=>200},{"category"=>"Women and Girls","id"=>201}]
+    JSON.parse(get_http_req_as_json sprintf('https://api.justgiving.com/%s/%s/charity/categories', @@app_id, @@version))
   end
 
   def get_charity_ids page, pageSize
-    charities_json = JSON.parse(get_charities page, pageSize)
-    ids = []
-    charities_json['charitySearchResults'].each { |c| ids << c['charityId'] }
+    # charities_json = JSON.parse(get_charities page, pageSize)
+    # ids = []
+    # charities_json['charitySearchResults'].each { |c| ids << c['charityId'] }
+    #
+    # ids
 
-    ids
+    [190017,147924,215925,224505,227715,196056,245297,97929,129453,74800,223152,45567,130683,245178,14609,133418,130651,123788,200224,56032]
   end
 
   def get_charities page, pageSize
