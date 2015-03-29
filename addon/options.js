@@ -1,5 +1,7 @@
 
 $(function() {
+	populateValues();
+
 //   // Handler for .ready() called.
 	$( ".polaroid" ).click(function() {
 		// console.log('lol');
@@ -12,7 +14,7 @@ $(function() {
 	  	console.log($(this).find('p').text())
 	  	
 	  		chrome.storage.sync.get('categories', function(result){
-	  			console.log('lol' + result);
+	  			// console.log('lol' + result);
 	  			if (result.value === undefined) {
 	  				categories.push(cat);
 	  			}
@@ -41,7 +43,46 @@ $(function() {
 
 	});
 
+
+	$( "input" ).blur(function() {
+		var val = $(this).val();
+		var key = $(this).closest("label").text();
+		var obj = {}
+		console.log(val);
+		obj[key] = val;
+		chrome.storage.sync.set({'obj': '123'}, function() {
+          	console.log(obj);
+        });
+
+        chrome.storage.sync.get('obj', function(result){
+			// console.log('key after' + key);
+  			console.log('lol after' + result.value);
+  			if (!(result.value === undefined)) {
+  				val = result.value;
+
+  			}
+
+  		});
+	});
+
 	
 });
 
+function populateValues(){
+	$( "input" ).val(
+		function(){
+		var key = $(this).closest("label").text();
+		var val = '';
+		chrome.storage.sync.get(key, function(result){
+			console.log('key' + key);
+  			console.log('lol' + result.value);
+  			if (!(result.value === undefined)) {
+  				val = result.value;
+
+  			}
+
+  		});
+		return val;
+	})
+}
 
